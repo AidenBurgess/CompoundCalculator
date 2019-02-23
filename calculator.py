@@ -26,6 +26,11 @@ def main_screen_format(screen):
         .grid(row=1, column=0, sticky=NSEW)
     Button(screen, text='Year by year', width=18, command=lambda: new_screen(year_by.start_calc)) \
         .grid(row=2, column=0, sticky=NSEW)
+    # Center everything
+    screen.grid_rowconfigure(0, weight=2)
+    screen.grid_rowconfigure(1, weight=1)
+    screen.grid_rowconfigure(2, weight=1)
+    screen.grid_columnconfigure(0, weight=1)
 
 
 # Open main window
@@ -34,12 +39,6 @@ initialise_main_screen(main_screen)
 # Add widgets to main window
 main_screen_format(main_screen)
 
-print('hi')
-# Center everything
-main_screen.grid_rowconfigure(0, weight=2)
-main_screen.grid_rowconfigure(1, weight=1)
-main_screen.grid_rowconfigure(2, weight=1)
-main_screen.grid_columnconfigure(0, weight=1)
 
 # Run the window
 main_screen.mainloop()

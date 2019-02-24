@@ -60,11 +60,11 @@ class CompoundCalculator:
         # Add the buttons into the same cell
         framing = Frame(self.screen, bg=settings.BLACK)
         framing.grid(row=5, column=1, sticky=NSEW)
-        self.radvar = IntVar()
+        self.start_year_contribution = IntVar()
         radio1 = Radiobutton(framing, text='End of year', width=12,
-                             indicatoron=0, variable=self.radvar, value=0)
+                             indicatoron=0, variable=self.start_year_contribution, value=0)
         radio2 = Radiobutton(framing, text='Start of year',
-                             width=12, indicatoron=0, variable=self.radvar, value=1)
+                             width=12, indicatoron=0, variable=self.start_year_contribution, value=1)
         radio1.pack(side='left')
         radio2.pack(side='right')
         print('Radios constructed')
@@ -81,28 +81,39 @@ class CompoundCalculator:
         Button(self.screen, text='SUBMIT', width=10, command=self.calculate_ending_capital,
                font=settings.entry_font).grid(row=6, column=1, sticky=N, pady=10)
 
-    def calculate_ending_capital(self):
-        print('Calculate ending capital called')
-        #
-        capital = self.entries[0].get()
-        rate = self.entries[1].get()
-        num_periods = self.entries[2].get()
-        contribution = self.entries[3].get()
-        capital, rate, num_periods, contribution = list(
-            map(int, [capital, rate, num_periods, contribution]))
-        #
+    def get_entries(self):
+        # Grab all the entries from entry boxes
+        self.capital = self.entries[0].get()
+        self.rate = self.entries[1].get()
+        self.num_periods = self.entries[2].get()
+        self.contribution = self.entries[3].get()
+        self.convert_entries_int()
+
+    def convert_entries_int(self):
+        # Convert parameters to int
         try:
-            for year in range(num_periods):
-                if self.radvar.get():
-                    capital = (capital + contribution) * (1 + rate / 100)
-                else:
-                    capital = capital * (1 + rate / 100) + contribution
-                # Record each capital
-            capital = '$' + str("{:,}".format(round(capital)))
+            self.capital, self.rate, self.num_periods, self.contribution = list(
+                map(int, [self.capital, self.rate, self.num_periods, self.contribution]))
         except:
-            capital = 'Please enter numbers only'
-            raise Exception('Non-number entered in entry box')
-        self.display_text(capital, self.ending_capital_disp)
+            self.capital = 'Please enter numbers only'
+
+    def calculate_ending_capital(self):
+        self.get_entries()
+        # Display error message
+        if isinstance(self.capital, str):
+            self.display_text(self.capital, self.ending_capital_disp)
+        # Calculate ending capital then display final amount
+        else:
+            for self.year in range(self.num_periods):
+                if self.start_year_contribution.get():
+                    self.capital = (
+                        self.capital + self.contribution) * (1 + self.rate / 100)
+                else:
+                    self.capital = self.capital * \
+                        (1 + self.rate / 100) + self.contribution
+            # Record each capital
+            self.capital = '$' + str("{:,}".format(round(self.capital)))
+            self.display_text(self.capital, self.ending_capital_disp)
 
 
 if __name__ == '__main__':

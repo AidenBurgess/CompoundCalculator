@@ -16,5 +16,5 @@ Tkinter functionality of: labels, buttons, radiobuttons, windows, entry boxes, o
 # Future Goals
 Add graphs for visual representation.  
 Year by year movement.  
-Calculate interest rates and years. 
+Calculate interest rates and years.  
 Shift between light/dark theme.  

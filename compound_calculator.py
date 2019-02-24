@@ -26,19 +26,7 @@ class CompoundCalculator:
         # Display entry boxes
         self.display_entry_boxes()
         # Display radio buttons
-        Label(self.screen, text='Contribution Timing' + ':', fg=settings.WHITE, bg=settings.BLACK, font=settings.menu_font) \
-            .grid(row=5, column=0, sticky=W)
-        framing = Frame(self.screen, bg=settings.BLACK)
-        framing.grid(row=5, column=1, sticky=NSEW)
-        # Display radio buttons
-        self.radvar = IntVar()
-        radio1 = Radiobutton(framing, text='End of year', width=12,
-                             indicatoron=0, variable=self.radvar, value=0)
-        radio2 = Radiobutton(framing, text='Start of year',
-                             width=12, indicatoron=0, variable=self.radvar, value=1)
-        radio1.pack(side='left')
-        radio2.pack(side='right')
-        print('Radios constructed')
+        self.display_radio_buttons()
         # Submit button calculates end_capital
         Button(self.screen, text='SUBMIT', width=10, command=self.calculate_ending_capital,
                font=settings.entry_font).grid(row=6, column=1, sticky=N, pady=10)
@@ -68,6 +56,22 @@ class CompoundCalculator:
             self.entries.append(
                 Entry(self.screen, width=20, bg=settings.WHITE, font=settings.entry_font))
             self.entries[-1].grid(row=row, column=1, sticky=W)
+
+    def display_radio_buttons(self):
+        # Determines whether the yearly contribution is added to start or end
+        # of the year
+        Label(self.screen, text='Contribution Timing' + ':', fg=settings.WHITE, bg=settings.BLACK, font=settings.menu_font) \
+            .grid(row=5, column=0, sticky=W)
+        framing = Frame(self.screen, bg=settings.BLACK)
+        framing.grid(row=5, column=1, sticky=NSEW)
+        self.radvar = IntVar()
+        radio1 = Radiobutton(framing, text='End of year', width=12,
+                             indicatoron=0, variable=self.radvar, value=0)
+        radio2 = Radiobutton(framing, text='Start of year',
+                             width=12, indicatoron=0, variable=self.radvar, value=1)
+        radio1.pack(side='left')
+        radio2.pack(side='right')
+        print('Radios constructed')
 
     def calculate_ending_capital(self):
         print('Calculate ending capital called')

@@ -19,7 +19,6 @@ class CompoundCalculator:
         self.screen = Tk()
         self.screen.title('Compound Interest Calculator')
         self.screen.configure(background=settings.BLACK)
-        self.entries = []
         print('Initialised Capital Calculator')
         Label(self.screen, text='Compound Interest', fg=settings.WHITE, bg=settings.BLACK, font=settings.title_font)\
             .grid(row=0, column=0, sticky=NSEW)
@@ -31,11 +30,7 @@ class CompoundCalculator:
         Button(self.screen, text='SUBMIT', width=10, command=self.calculate_ending_capital,
                font=settings.entry_font).grid(row=6, column=1, sticky=N, pady=10)
         # Output ending capital
-        Label(self.screen, text='\nEnding Capital:', fg=settings.WHITE,
-              bg=settings.BLACK, font=settings.menu_font).grid(row=7, column=0, sticky=W)
-        self.ending_capital_disp = Text(
-            self.screen, width=16, height=2, wrap=WORD, background=settings.WHITE, font=settings.entry_font)
-        self.ending_capital_disp.grid(row=7, column=1, sticky=S)
+        self.output_ending_capital()
         # Build graph
         # Back button
         # Quit button
@@ -47,7 +42,8 @@ class CompoundCalculator:
         textbox.insert(END, text)
 
     def display_entry_boxes(self):
-        # Display all entry boxes
+        # Display all entry boxes and add them to a list, so they are callable
+        self.entries = []
         entry_list = [('Starting Capital ($)', 1), ('Interest Rate (%)', 2),
                       ('Number of Years', 3), ('Yearly Contribution', 4)]
         for name, row in entry_list:
@@ -62,6 +58,7 @@ class CompoundCalculator:
         # of the year
         Label(self.screen, text='Contribution Timing' + ':', fg=settings.WHITE, bg=settings.BLACK, font=settings.menu_font) \
             .grid(row=5, column=0, sticky=W)
+        # Add the buttons into the same cell
         framing = Frame(self.screen, bg=settings.BLACK)
         framing.grid(row=5, column=1, sticky=NSEW)
         self.radvar = IntVar()
@@ -72,6 +69,14 @@ class CompoundCalculator:
         radio1.pack(side='left')
         radio2.pack(side='right')
         print('Radios constructed')
+
+    def output_ending_capital(self):
+        #Display the ending capital in textbox
+        Label(self.screen, text='\nEnding Capital:', fg=settings.WHITE,
+              bg=settings.BLACK, font=settings.menu_font).grid(row=7, column=0, sticky=W)
+        self.ending_capital_disp = Text(
+            self.screen, width=16, height=2, wrap=WORD, background=settings.WHITE, font=settings.entry_font)
+        self.ending_capital_disp.grid(row=7, column=1, sticky=S)
 
     def calculate_ending_capital(self):
         print('Calculate ending capital called')

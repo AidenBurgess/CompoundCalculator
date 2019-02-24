@@ -5,11 +5,12 @@ interest rate, starting capital, number of years, and yearly contribution.
 Author: Aiden Burgess
 '''
 from tkinter import *
+import multi_line_annot as mla
 import settings
 
 
 def start_calc():
-    new = CompoundCalculator()
+    CompoundCalculator()
 
 
 class CompoundCalculator:
@@ -79,12 +80,11 @@ class CompoundCalculator:
 
     def disp_submit_buttons(self):
         # Build the graph button
-        Button(self.screen, text='Build Graph', width=10, command=self.calc_ending_cap,
+        Button(self.screen, text='Build Graph', width=10, command=self.build_graph,
                font=settings.entry_font).grid(row=6, column=0, sticky=N, pady=10)
         # Calculate the ending capital
         Button(self.screen, text='Submit', width=10, command=self.calc_ending_cap,
                font=settings.entry_font).grid(row=6, column=1, sticky=N, pady=10)
-
 
     def get_entries(self):
         # Grab all the entries from entry boxes
@@ -120,6 +120,12 @@ class CompoundCalculator:
             self.capital = '$' + str("{:,}".format(round(self.capital)))
             self.display_text(self.capital, self.ending_capital_disp)
 
+    def build_graph(self):
+        self.get_entries()
+        # Total contribution line
+        total_contributions = range(self.capital, self.capital+self.contribution*self.num_periods + 1, self.contribution)
+        mla.plot_line(range(self.num_periods+1), total_contributions)
+        mla.show_graph()
 
 if __name__ == '__main__':
     start_calc()

@@ -9,7 +9,7 @@ import settings
 
 
 def start_calc():
-    new = YearBy()
+    YearBy()
 
 
 class YearBy:

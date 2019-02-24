@@ -23,7 +23,7 @@ class CompoundCalculator:
         self.disp_title()
         self.disp_entry_boxes()
         self.disp_rad_buttons()
-        self.disp_submit_button()
+        self.disp_submit_buttons()
         self.out_ending_cap()
         # Build graph
         # Back button
@@ -77,9 +77,14 @@ class CompoundCalculator:
             self.screen, width=16, height=2, wrap=WORD, background=settings.WHITE, font=settings.entry_font)
         self.ending_capital_disp.grid(row=7, column=1, sticky=S)
 
-    def disp_submit_button(self):
-        Button(self.screen, text='SUBMIT', width=10, command=self.calc_ending_cap,
+    def disp_submit_buttons(self):
+        # Build the graph button
+        Button(self.screen, text='Build Graph', width=10, command=self.calc_ending_cap,
+               font=settings.entry_font).grid(row=6, column=0, sticky=N, pady=10)
+        # Calculate the ending capital
+        Button(self.screen, text='Submit', width=10, command=self.calc_ending_cap,
                font=settings.entry_font).grid(row=6, column=1, sticky=N, pady=10)
+
 
     def get_entries(self):
         # Grab all the entries from entry boxes

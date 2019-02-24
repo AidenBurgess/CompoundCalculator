@@ -20,15 +20,14 @@ class CompoundCalculator:
         self.screen.title('Compound Interest Calculator')
         self.screen.configure(background=settings.BLACK)
         print('Initialised Capital Calculator')
-        Label(self.screen, text='Compound Interest', fg=settings.WHITE, bg=settings.BLACK, font=settings.title_font)\
-            .grid(row=0, column=0, sticky=NSEW)
+        Label(self.screen, text='Compound Interest', fg=settings.WHITE, bg=settings.BLACK,
+              font=settings.title_font).grid(row=0, column=0, sticky=NSEW)
         # Display entry boxes
         self.display_entry_boxes()
         # Display radio buttons
         self.display_radio_buttons()
         # Submit button calculates end_capital
-        Button(self.screen, text='SUBMIT', width=10, command=self.calculate_ending_capital,
-               font=settings.entry_font).grid(row=6, column=1, sticky=N, pady=10)
+        self.display_submit_button()
         # Output ending capital
         self.output_ending_capital()
         # Build graph
@@ -47,10 +46,10 @@ class CompoundCalculator:
         entry_list = [('Starting Capital ($)', 1), ('Interest Rate (%)', 2),
                       ('Number of Years', 3), ('Yearly Contribution', 4)]
         for name, row in entry_list:
-            Label(self.screen, text=name + ':', fg=settings.WHITE, bg=settings.BLACK, font=settings.menu_font) \
-                .grid(row=row, column=0, sticky=W)
-            self.entries.append(
-                Entry(self.screen, width=20, bg=settings.WHITE, font=settings.entry_font))
+            Label(self.screen, text=name + ':', fg=settings.WHITE, bg=settings.BLACK,
+                  font=settings.menu_font).grid(row=row, column=0, sticky=W)
+            self.entries.append(Entry(self.screen, width=20, bg=settings.WHITE,
+                                font=settings.entry_font))
             self.entries[-1].grid(row=row, column=1, sticky=W)
 
     def display_radio_buttons(self):
@@ -77,6 +76,10 @@ class CompoundCalculator:
         self.ending_capital_disp = Text(
             self.screen, width=16, height=2, wrap=WORD, background=settings.WHITE, font=settings.entry_font)
         self.ending_capital_disp.grid(row=7, column=1, sticky=S)
+
+    def display_submit_button(self):
+        Button(self.screen, text='SUBMIT', width=10, command=self.calculate_ending_capital,
+               font=settings.entry_font).grid(row=6, column=1, sticky=N, pady=10)
 
     def calculate_ending_capital(self):
         print('Calculate ending capital called')

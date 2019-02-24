@@ -19,22 +19,22 @@ class CompoundCalculator:
         self.screen = Tk()
         self.screen.title('Compound Interest Calculator')
         self.screen.configure(background=settings.BLACK)
-        print('Initialised Capital Calculator')
-        Label(self.screen, text='Compound Interest', fg=settings.WHITE, bg=settings.BLACK,
-              font=settings.title_font).grid(row=0, column=0, sticky=NSEW)
-        # Display entry boxes
+        # Build widgets onto window
+        self.display_title()
         self.display_entry_boxes()
-        # Display radio buttons
         self.display_radio_buttons()
-        # Submit button calculates end_capital
         self.display_submit_button()
-        # Output ending capital
         self.output_ending_capital()
         # Build graph
         # Back button
         # Quit button
         # Start the window
+        print('Initialised Capital Calculator')
         self.screen.mainloop()
+
+    def display_title(self):
+        Label(self.screen, text='Compound Interest', fg=settings.WHITE, bg=settings.BLACK,
+              font=settings.title_font).grid(row=0, column=0, sticky=NSEW)
 
     def display_text(self, text, textbox):
         textbox.delete(0.0, END)

@@ -38,7 +38,5 @@ main_screen = Tk()
 initialise_main_screen(main_screen)
 # Add widgets to main window
 main_screen_format(main_screen)
-
-
 # Run the window
 main_screen.mainloop()

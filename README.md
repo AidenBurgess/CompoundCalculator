@@ -1,6 +1,12 @@
 # CompoundCalculator
 Calculate future savings with: capital, rate, years, yearly contribution.
 
+# How to Run
+Download all files as a ZIP.  
+Extract files into the same folder.  
+Ensure python and Tkinter are installed.  
+Run calculator.py  
+
 # What I Learned
 Use of multiple scripts for one program.  
 Ability to compartmentalise my code into functions and classes.  

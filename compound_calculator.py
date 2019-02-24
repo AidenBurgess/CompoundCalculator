@@ -49,7 +49,7 @@ class CompoundCalculator:
             Label(self.screen, text=name + ':', fg=settings.WHITE, bg=settings.BLACK,
                   font=settings.menu_font).grid(row=row, column=0, sticky=W)
             self.entries.append(Entry(self.screen, width=20, bg=settings.WHITE,
-                                font=settings.entry_font))
+                                      font=settings.entry_font))
             self.entries[-1].grid(row=row, column=1, sticky=W)
 
     def display_radio_buttons(self):
@@ -70,7 +70,7 @@ class CompoundCalculator:
         print('Radios constructed')
 
     def output_ending_capital(self):
-        #Display the ending capital in textbox
+        # Display the ending capital in textbox
         Label(self.screen, text='\nEnding Capital:', fg=settings.WHITE,
               bg=settings.BLACK, font=settings.menu_font).grid(row=7, column=0, sticky=W)
         self.ending_capital_disp = Text(

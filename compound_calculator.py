@@ -20,11 +20,11 @@ class CompoundCalculator:
         self.screen.title('Compound Interest Calculator')
         self.screen.configure(background=settings.BLACK)
         # Build widgets onto window
-        self.display_title()
-        self.display_entry_boxes()
-        self.display_radio_buttons()
-        self.display_submit_button()
-        self.output_ending_capital()
+        self.disp_title()
+        self.disp_entry_boxes()
+        self.disp_rad_buttons()
+        self.disp_submit_button()
+        self.out_ending_cap()
         # Build graph
         # Back button
         # Quit button
@@ -32,7 +32,7 @@ class CompoundCalculator:
         print('Initialised Capital Calculator')
         self.screen.mainloop()
 
-    def display_title(self):
+    def disp_title(self):
         Label(self.screen, text='Compound Interest', fg=settings.WHITE, bg=settings.BLACK,
               font=settings.title_font).grid(row=0, column=0, sticky=NSEW)
 
@@ -40,7 +40,7 @@ class CompoundCalculator:
         textbox.delete(0.0, END)
         textbox.insert(END, text)
 
-    def display_entry_boxes(self):
+    def disp_entry_boxes(self):
         # Display all entry boxes and add them to a list, so they are callable
         self.entries = []
         entry_list = [('Starting Capital ($)', 1), ('Interest Rate (%)', 2),
@@ -52,7 +52,7 @@ class CompoundCalculator:
                                       font=settings.entry_font))
             self.entries[-1].grid(row=row, column=1, sticky=W)
 
-    def display_radio_buttons(self):
+    def disp_rad_buttons(self):
         # Determines whether the yearly contribution is added to start or end
         # of the year
         Label(self.screen, text='Contribution Timing' + ':', fg=settings.WHITE, bg=settings.BLACK, font=settings.menu_font) \
@@ -69,7 +69,7 @@ class CompoundCalculator:
         radio2.pack(side='right')
         print('Radios constructed')
 
-    def output_ending_capital(self):
+    def out_ending_cap(self):
         # Display the ending capital in textbox
         Label(self.screen, text='\nEnding Capital:', fg=settings.WHITE,
               bg=settings.BLACK, font=settings.menu_font).grid(row=7, column=0, sticky=W)
@@ -77,8 +77,8 @@ class CompoundCalculator:
             self.screen, width=16, height=2, wrap=WORD, background=settings.WHITE, font=settings.entry_font)
         self.ending_capital_disp.grid(row=7, column=1, sticky=S)
 
-    def display_submit_button(self):
-        Button(self.screen, text='SUBMIT', width=10, command=self.calculate_ending_capital,
+    def disp_submit_button(self):
+        Button(self.screen, text='SUBMIT', width=10, command=self.calc_ending_cap,
                font=settings.entry_font).grid(row=6, column=1, sticky=N, pady=10)
 
     def get_entries(self):
@@ -97,7 +97,7 @@ class CompoundCalculator:
         except:
             self.capital = 'Please enter numbers only'
 
-    def calculate_ending_capital(self):
+    def calc_ending_cap(self):
         self.get_entries()
         # Display error message
         if isinstance(self.capital, str):

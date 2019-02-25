@@ -123,9 +123,10 @@ class CompoundCalculator:
         self.get_entries()
         # Total contribution line
         total_contributions = range(self.capital, self.capital+self.contribution*self.num_periods + 1, self.contribution)
-        init_graph()
-        mla.plot_line(range(self.num_periods+1), total_contributions)
-        mla.show_graph()
+        time_period = range(self.num_periods+1)
+        new = mla.LineGraph()
+        new.plot_line(time_period, total_contributions)
+        new.show_graph()
 
 
 if __name__ == '__main__':

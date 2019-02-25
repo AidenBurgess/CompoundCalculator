@@ -108,6 +108,7 @@ class CompoundCalculator:
             self.display_text(self.capital, self.ending_capital_disp)
         # Calculate ending capital then display final amount
         else:
+            self.cap_list = [self.capital]
             for self.year in range(self.num_periods):
                 if self.toggle_contr.get():
                     self.capital = (
@@ -115,6 +116,7 @@ class CompoundCalculator:
                 else:
                     self.capital = self.capital * \
                         (1 + self.rate / 100) + self.contribution
+                self.cap_list.append(self.capital)
             # Record each capital
             self.capital = '$' + str("{:,}".format(round(self.capital)))
             self.display_text(self.capital, self.ending_capital_disp)
@@ -126,6 +128,7 @@ class CompoundCalculator:
         time_period = range(self.num_periods+1)
         new = mla.LineGraph()
         new.plot_line(time_period, total_contributions)
+        new.plot_line(time_period, self.cap_list)
         new.show_graph()
 
 

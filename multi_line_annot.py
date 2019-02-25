@@ -7,6 +7,14 @@ class LineGraph:
 
     def __init__(self):
         self.fig, self.ax = plt.subplots()
+        # Label the graph
+        # X and Y labels
+        plt.xlabel('Year')
+        plt.ylabel('Capital')
+        # Titles
+        plt.suptitle('Compounding Interest Graph', fontsize=16)
+        #
+        plt.legend()
 
     def update_annot(self, ind, line, annot, ydata):
         x, y = line.get_data()
@@ -18,7 +26,6 @@ class LineGraph:
         text = "{}, {}".format(x_values, y_values)
         annot.set_text(text)
         annot.get_bbox_patch().set_alpha(0.4)
-
 
     def hover(self, event, line, annot, ydata):
         vis = annot.get_visible()
@@ -34,7 +41,6 @@ class LineGraph:
                 if vis:
                     annot.set_visible(False)
                     self.fig.canvas.draw_idle()
-
 
     def plot_line(self, x, y):
         line, = plt.plot(x, y, marker="o")

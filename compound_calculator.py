@@ -121,10 +121,20 @@ class CompoundCalculator:
             self.capital = '$' + str("{:,}".format(round(self.capital)))
             self.display_text(self.capital, self.ending_capital_disp)
 
+    def graph_exception(self):
+        return False
+
+    def total_contri_generator(self):
+        for x in range(self.num_periods+1):
+                yield self.capital + x*self.contribution
+
     def build_graph(self):
         self.get_entries()
         # Total contribution line
-        total_contributions = range(self.capital, self.capital+self.contribution*self.num_periods + 1, self.contribution)
+        if self.graph_exception():
+            # Output error to textbox
+            return
+        total_contributions = list(self.total_contri_generator())
         time_period = range(self.num_periods+1)
         # Add legends to lines
         new = mla.LineGraph()

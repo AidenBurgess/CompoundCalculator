@@ -26,7 +26,6 @@ class CompoundCalculator:
         self.disp_rad_buttons()
         self.disp_submit_buttons()
         self.out_ending_cap()
-        # Build graph
         # Back button
         # Quit button
         # Start the window
@@ -61,11 +60,11 @@ class CompoundCalculator:
         # Add the buttons into the same cell
         framing = Frame(self.screen, bg=settings.BLACK)
         framing.grid(row=5, column=1, sticky=NSEW)
-        self.start_year_contribution = IntVar()
+        self.toggle_contr = IntVar()
         radio1 = Radiobutton(framing, text='End of year', width=12,
-                             indicatoron=0, variable=self.start_year_contribution, value=0)
-        radio2 = Radiobutton(framing, text='Start of year',
-                             width=12, indicatoron=0, variable=self.start_year_contribution, value=1)
+                             indicatoron=0, variable=self.toggle_contr, value=0)
+        radio2 = Radiobutton(framing, text='Start of year', width=12,
+                             indicatoron=0, variable=self.toggle_contr, value=1)
         radio1.pack(side='left')
         radio2.pack(side='right')
         print('Radios constructed')
@@ -110,7 +109,7 @@ class CompoundCalculator:
         # Calculate ending capital then display final amount
         else:
             for self.year in range(self.num_periods):
-                if self.start_year_contribution.get():
+                if self.toggle_contr.get():
                     self.capital = (
                         self.capital + self.contribution) * (1 + self.rate / 100)
                 else:
@@ -124,8 +123,10 @@ class CompoundCalculator:
         self.get_entries()
         # Total contribution line
         total_contributions = range(self.capital, self.capital+self.contribution*self.num_periods + 1, self.contribution)
+        init_graph()
         mla.plot_line(range(self.num_periods+1), total_contributions)
         mla.show_graph()
+
 
 if __name__ == '__main__':
     start_calc()

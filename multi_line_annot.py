@@ -22,7 +22,7 @@ class LineGraph:
         x_values = " ".join(list(map(str, ind["ind"])))
         y_values = " ".join(str(ydata[n]) for n in ind["ind"])
         # Format of label can be changed here
-        text = "{}, {}".format(x_values, y_values)
+        text = "{}, {}".format(x_values, round(y_values))
         annot.set_text(text)
         annot.get_bbox_patch().set_alpha(0.4)
 

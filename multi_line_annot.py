@@ -4,12 +4,13 @@ import matplotlib.pyplot as plt
 class LineGraph:
 
     def __init__(self):
+        #Disable toolbar
+        plt.rcParams['toolbar'] = 'None'
         self.fig, self.ax = plt.subplots()
-        # Label the graph
         # X and Y labels
         plt.xlabel('Year')
         plt.ylabel('Capital')
-        # Titles
+        # Title
         plt.suptitle('Compounding Interest Graph', fontsize=16)
         #
         plt.legend()

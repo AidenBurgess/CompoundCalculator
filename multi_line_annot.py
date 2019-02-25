@@ -1,7 +1,5 @@
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
-from tkinter import *
+
 
 class LineGraph:
 
@@ -45,12 +43,13 @@ class LineGraph:
     def plot_line(self, x, y):
         line, = plt.plot(x, y, marker="o")
         # Annotation style may be changed here
-        annot = self.ax.annotate("", xy=(0, 0), xytext=(-20, 20), textcoords="offset points",
-                            bbox=dict(boxstyle="round", fc="w"),
-                            arrowprops=dict(arrowstyle="->"))
+        annot = self.ax.annotate("", xy=(0, 0), xytext=(-20, 20),
+                                 textcoords="offset points",
+                                 bbox=dict(boxstyle="round", fc="w"),
+                                 arrowprops=dict(arrowstyle="->"))
         annot.set_visible(False)
         self.fig.canvas.mpl_connect("motion_notify_event",
-                               lambda event: self.hover(event, line, annot, y))
+                                    lambda event: self.hover(event, line, annot, y))
 
     def show_graph(self):
         plt.show()

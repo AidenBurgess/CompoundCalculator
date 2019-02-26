@@ -15,26 +15,26 @@ class LineGraph:
         # Show legend
         plt.legend()
 
-    def update_annot(self, line, annot, ydata):
+    def update_annot(self, line, annot):
         # Get x and y values
         x, y = line.get_data()
         x_values = x[self.ind["ind"][0]]
-        y_values = ydata[self.ind["ind"][0]]
+        y_values = y[self.ind["ind"][0]]
         # Change location of annotation
         annot.xy = (x_values, y_values)
-        # Format of label can be changed here
-        text = "Year: {}\nAmount: ${:,}".format(x_values, y_values)
+        # Text to display on label
+        text = "Year: {}\nAmount: ${:,}".format(x_values, int(y_values))
         annot.set_text(text)
         # Set transparency
         annot.get_bbox_patch().set_alpha(0.8)
 
-    def hover(self, event, line, annot, ydata):
+    def hover(self, event, line, annot):
         vis = annot.get_visible()
         if event.inaxes == self.ax:
             cont, self.ind = line.contains(event)
             # Set annotation if cursor contacts line
             if cont:
-                self.update_annot(line, annot, ydata)
+                self.update_annot(line, annot)
                 annot.set_visible(True)
                 self.fig.canvas.draw_idle()
             else:
@@ -52,7 +52,7 @@ class LineGraph:
                                  arrowprops=dict(arrowstyle="->"))
         annot.set_visible(False)
         self.fig.canvas.mpl_connect("motion_notify_event",
-                                    lambda event: self.hover(event, line, annot, y))
+                                    lambda event: self.hover(event, line, annot))
 
     def show_graph(self):
         plt.show()

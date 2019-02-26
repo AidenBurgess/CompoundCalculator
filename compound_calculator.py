@@ -7,11 +7,7 @@ Author: Aiden Burgess
 import tkinter as tk
 import multi_line_annot as mla
 import settings
-
-
-def start_calc():
-    CompoundCalculator()
-
+import calculator
 
 class CompoundCalculator:
 
@@ -27,6 +23,7 @@ class CompoundCalculator:
         self.disp_submit_buttons()
         self.out_ending_cap()
         # Back button
+        self.disp_back_button()
         # Quit button
         # Start the window
         print('Initialised Capital Calculator')
@@ -148,6 +145,16 @@ class CompoundCalculator:
         new.plot_line(time_period, self.cap_list)
         new.show_graph()
 
+    def disp_back_button(self):
+        tk.Button(self.screen, text='<-- back', width=10,
+                  command=self.back_to_main, font=settings.entry_font)\
+            .grid(row=8, column=0, sticky=tk.W, pady=10)
+
+
+    def back_to_main(self):
+        self.screen.destroy()
+        calculator.MainScreen()
+
 
 if __name__ == '__main__':
-    start_calc()
+    CompoundCalculator()

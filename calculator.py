@@ -31,7 +31,7 @@ class MainScreen:
     def format_main_screen(self):
         tk.Label(self.screen, text='Aiden\'s Calculator\nMain Screen', fg=settings.WHITE, bg=settings.BLACK, font=settings.title_font) \
             .grid(row=0, column=0, sticky=tk.NSEW)
-        tk.Button(self.screen, text='Calculate ending capital', width=18, command=lambda: self.new_screen(compound_calculator.start_calc)) \
+        tk.Button(self.screen, text='Calculate ending capital', width=18, command=lambda: self.new_screen(compound_calculator.CompoundCalculator)) \
             .grid(row=1, column=0, sticky=tk.NSEW)
         tk.Button(self.screen, text='Year by year', width=18, command=lambda: self.new_screen(year_by.start_calc)) \
             .grid(row=2, column=0, sticky=tk.NSEW)

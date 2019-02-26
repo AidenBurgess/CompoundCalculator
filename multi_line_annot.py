@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 class LineGraph:
 
     def __init__(self):
-        #Disable toolbar
+        # Disable toolbar
         plt.rcParams['toolbar'] = 'None'
         self.fig, self.ax = plt.subplots()
         # X and Y labels
@@ -12,27 +12,29 @@ class LineGraph:
         plt.ylabel('Capital')
         # Title
         plt.suptitle('Compounding Interest Graph', fontsize=16)
-        #
+        # Show legend
         plt.legend()
 
-    def update_annot(self, ind, line, annot, ydata):
+    def update_annot(self, line, annot, ydata):
+        # Get x and y values
         x, y = line.get_data()
-        annot.xy = (x[ind["ind"][0]], y[ind["ind"][0]])
-        # Get x and y values, then format them to be displayed
-        x_values = " ".join(list(map(str, ind["ind"])))
-        y_values = " ".join(str(ydata[n]) for n in ind["ind"])
+        x_values = x[self.ind["ind"][0]]
+        y_values = ydata[self.ind["ind"][0]]
+        # Change location of annotation
+        annot.xy = (x_values, y_values)
         # Format of label can be changed here
-        text = "{}, {}".format(x_values, round(y_values))
+        text = "Year: {}\nAmount: ${:,}".format(x_values, y_values)
         annot.set_text(text)
-        annot.get_bbox_patch().set_alpha(0.4)
+        # Set transparency
+        annot.get_bbox_patch().set_alpha(0.8)
 
     def hover(self, event, line, annot, ydata):
         vis = annot.get_visible()
         if event.inaxes == self.ax:
-            # Draw annotations if cursor in right position
-            cont, ind = line.contains(event)
+            cont, self.ind = line.contains(event)
+            # Set annotation if cursor contacts line
             if cont:
-                self.update_annot(ind, line, annot, ydata)
+                self.update_annot(line, annot, ydata)
                 annot.set_visible(True)
                 self.fig.canvas.draw_idle()
             else:

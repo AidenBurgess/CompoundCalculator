@@ -33,8 +33,9 @@ class CompoundCalculator:
         self.screen.mainloop()
 
     def disp_title(self):
-        tk.Label(self.screen, text='Compound Interest', fg=settings.WHITE, bg=settings.BLACK,
-              font=settings.title_font).grid(row=0, column=0, sticky=tk.NSEW)
+        tk.Label(self.screen, text='Compound Interest', fg=settings.WHITE,
+                 bg=settings.BLACK, font=settings.title_font)\
+                 .grid(row=0, column=0, sticky=tk.NSEW)
 
     def display_text(self, text, textbox):
         textbox.delete(0.0, tk.END)
@@ -55,8 +56,9 @@ class CompoundCalculator:
     def disp_rad_buttons(self):
         # Determines whether the yearly contribution is added to start or end
         # of the year
-        tk.Label(self.screen, text='Contribution Timing' + ':', fg=settings.WHITE, bg=settings.BLACK, font=settings.menu_font) \
-            .grid(row=5, column=0, sticky=tk.W)
+        tk.Label(self.screen, text='Contribution Timing' + ':',
+                 fg=settings.WHITE, bg=settings.BLACK, font=settings.menu_font)\
+                 .grid(row=5, column=0, sticky=tk.W)
         # Add the buttons into the same cell
         framing = tk.Frame(self.screen, bg=settings.BLACK)
         framing.grid(row=5, column=1, sticky=tk.NSEW)
@@ -72,18 +74,22 @@ class CompoundCalculator:
     def out_ending_cap(self):
         # Display the ending capital in textbox
         tk.Label(self.screen, text='\nEnding Capital:', fg=settings.WHITE,
-              bg=settings.BLACK, font=settings.menu_font).grid(row=7, column=0, sticky=tk.W)
+                 bg=settings.BLACK, font=settings.menu_font)\
+                 .grid(row=7, column=0, sticky=tk.W)
         self.ending_capital_disp = tk.Text(
-            self.screen, width=16, height=2, wrap=tk.WORD, background=settings.WHITE, font=settings.entry_font)
+            self.screen, width=16, height=2, wrap=tk.WORD,
+            background=settings.WHITE, font=settings.entry_font)
         self.ending_capital_disp.grid(row=7, column=1, sticky=tk.S)
 
     def disp_submit_buttons(self):
         # Build the graph button
-        tk.Button(self.screen, text='Build Graph', width=10, command=self.build_graph,
-               font=settings.entry_font).grid(row=6, column=0, sticky=tk.N, pady=10)
+        tk.Button(self.screen, text='Build Graph', width=10,
+                  command=self.build_graph, font=settings.entry_font)\
+                  .grid(row=6, column=0, sticky=tk.N, pady=10)
         # Calculate the ending capital
-        tk.Button(self.screen, text='Submit', width=10, command=self.calc_ending_cap,
-               font=settings.entry_font).grid(row=6, column=1, sticky=tk.N, pady=10)
+        tk.Button(self.screen, text='Submit', width=10,
+                  command=self.calc_ending_cap, font=settings.entry_font)\
+            .grid(row=6, column=1, sticky=tk.N, pady=10)
 
     def get_entries(self):
         # Grab all the entries from entry boxes
@@ -111,8 +117,8 @@ class CompoundCalculator:
             self.cap_list = [self.capital]
             for self.year in range(self.num_periods):
                 if self.toggle_contr.get():
-                    self.capital = (
-                        self.capital + self.contribution) * (1 + self.rate / 100)
+                    self.capital = (self.capital + self.contribution)\
+                     * (1 + self.rate / 100)
                 else:
                     self.capital = self.capital * \
                         (1 + self.rate / 100) + self.contribution
@@ -126,7 +132,7 @@ class CompoundCalculator:
 
     def total_contri_generator(self):
         for x in range(self.num_periods+1):
-                yield self.capital + x*self.contribution
+            yield self.capital + x*self.contribution
 
     def build_graph(self):
         self.get_entries()

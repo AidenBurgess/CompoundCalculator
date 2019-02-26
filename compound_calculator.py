@@ -141,15 +141,14 @@ class CompoundCalculator:
         time_period = range(self.num_periods+1)
         # Add legends to lines
         new = mla.LineGraph()
-        new.plot_line(time_period, total_contributions)
-        new.plot_line(time_period, self.cap_list)
+        new.plot_line(time_period, self.cap_list, 'Total Capital')
+        new.plot_line(time_period, total_contributions, 'Total Contribution')
         new.show_graph()
 
     def disp_back_button(self):
         tk.Button(self.screen, text='<-- back', width=10,
                   command=self.back_to_main, font=settings.entry_font)\
             .grid(row=8, column=0, sticky=tk.W, pady=10)
-
 
     def back_to_main(self):
         self.screen.destroy()

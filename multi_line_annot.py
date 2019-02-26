@@ -13,17 +13,16 @@ class LineGraph:
         # Title
         plt.suptitle('Compounding Interest Graph', fontsize=16)
         # Show legend
-        plt.legend()
 
     def update_annot(self, line, annot):
         # Get x and y values
         x, y = line.get_data()
-        x_values = x[self.ind["ind"][0]]
-        y_values = y[self.ind["ind"][0]]
+        x = x[self.ind["ind"][0]]
+        y = y[self.ind["ind"][0]]
         # Change location of annotation
-        annot.xy = (x_values, y_values)
+        annot.xy = (x, y)
         # Text to display on label
-        text = "Year: {}\nAmount: ${:,}".format(x_values, int(y_values))
+        text = "Year: {}\nAmount: ${:,}".format(x, int(y))
         annot.set_text(text)
         # Set transparency
         annot.get_bbox_patch().set_alpha(0.8)
@@ -43,8 +42,8 @@ class LineGraph:
                     annot.set_visible(False)
                     self.fig.canvas.draw_idle()
 
-    def plot_line(self, x, y):
-        line, = plt.plot(x, y, marker="o")
+    def plot_line(self, x, y, label):
+        line, = plt.plot(x, y, label=label, marker="o")
         # Annotation style may be changed here
         annot = self.ax.annotate("", xy=(0, 0), xytext=(-20, 20),
                                  textcoords="offset points",
@@ -55,7 +54,11 @@ class LineGraph:
                                     lambda event: self.hover(event, line, annot))
 
     def show_graph(self):
+        plt.legend()
         plt.show()
+
+    def refresh(self):
+        plt.close()
 
 
 if __name__ == '__main__':
@@ -66,6 +69,6 @@ if __name__ == '__main__':
     y2 = range(0, 42, 2)
     # Plot line graphs
     new = LineGraph()
-    new.plot_line(x1, y1)
-    new.plot_line(x2, y2)
-    plt.show()
+    new.plot_line(x1, y1, 'Normal')
+    new.plot_line(x2, y2, '2x Normal')
+    new.show_graph()

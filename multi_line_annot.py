@@ -45,7 +45,7 @@ class LineGraph:
     def plot_line(self, x, y, label):
         line, = plt.plot(x, y, label=label, marker="o")
         # Annotation style may be changed here
-        annot = self.ax.annotate("", xy=(0, 0), xytext=(-20, 20),
+        annot = self.ax.annotate("", xy=(0, 0), xytext=(-60, 20),
                                  textcoords="offset points",
                                  bbox=dict(boxstyle="round", fc="w"),
                                  arrowprops=dict(arrowstyle="->"))

@@ -33,7 +33,7 @@ class MainScreen:
             .grid(row=0, column=0, sticky=tk.NSEW)
         tk.Button(self.screen, text='Calculate ending capital', width=18, command=lambda: self.new_screen(compound_calculator.CompoundCalculator)) \
             .grid(row=1, column=0, sticky=tk.NSEW)
-        tk.Button(self.screen, text='Year by year', width=18, command=lambda: self.new_screen(year_by.start_calc)) \
+        tk.Button(self.screen, text='Year by year', width=18, command=lambda: self.new_screen(year_by.YearBy)) \
             .grid(row=2, column=0, sticky=tk.NSEW)
         # Center everything
         self.screen.grid_rowconfigure(0, weight=2)

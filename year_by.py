@@ -33,7 +33,7 @@ class YearBy:
     def disp_title(self):
         tk.Label(self.screen, text='Year by Year', fg=settings.WHITE,
                  bg=settings.BLACK, font=settings.title_font)\
-                 .grid(row=0, column=0, sticky=tk.NSEW)
+            .grid(row=0, column=0, sticky=tk.NSEW)
 
     def display_text(self, text, textbox):
         textbox.delete(0.0, tk.END)
@@ -46,9 +46,9 @@ class YearBy:
                       ('Number of Years', 3), ('Yearly Contribution', 4)]
         for name, row in entry_list:
             tk.Label(self.screen, text=name + ':', fg=settings.WHITE, bg=settings.BLACK,
-                  font=settings.menu_font).grid(row=row, column=0, sticky=tk.W)
+                     font=settings.menu_font).grid(row=row, column=0, sticky=tk.W)
             self.entries.append(tk.Entry(self.screen, width=20, bg=settings.WHITE,
-                                      font=settings.entry_font))
+                                         font=settings.entry_font))
             self.entries[-1].grid(row=row, column=1, sticky=tk.W)
 
     def disp_rad_buttons(self):
@@ -56,15 +56,15 @@ class YearBy:
         # of the year
         tk.Label(self.screen, text='Contribution Timing' + ':',
                  fg=settings.WHITE, bg=settings.BLACK, font=settings.menu_font)\
-                 .grid(row=5, column=0, sticky=tk.W)
+            .grid(row=5, column=0, sticky=tk.W)
         # Add the buttons into the same cell
         framing = tk.Frame(self.screen, bg=settings.BLACK)
         framing.grid(row=5, column=1, sticky=tk.NSEW)
         self.toggle_contr = tk.IntVar()
         radio1 = tk.Radiobutton(framing, text='End of year', width=12,
-                             indicatoron=0, variable=self.toggle_contr, value=0)
+                                indicatoron=0, variable=self.toggle_contr, value=0)
         radio2 = tk.Radiobutton(framing, text='Start of year', width=12,
-                             indicatoron=0, variable=self.toggle_contr, value=1)
+                                indicatoron=0, variable=self.toggle_contr, value=1)
         radio1.pack(side='left')
         radio2.pack(side='right')
         print('Radios constructed')
@@ -73,7 +73,7 @@ class YearBy:
         # Display the ending capital in textbox
         tk.Label(self.screen, text='\nEnding Capital:', fg=settings.WHITE,
                  bg=settings.BLACK, font=settings.menu_font)\
-                 .grid(row=7, column=0, sticky=tk.W)
+            .grid(row=7, column=0, sticky=tk.W)
         self.ending_capital_disp = tk.Text(
             self.screen, width=16, height=2, wrap=tk.WORD,
             background=settings.WHITE, font=settings.entry_font)
@@ -83,18 +83,17 @@ class YearBy:
         # Build the graph button
         tk.Button(self.screen, text='Build Graph', width=10,
                   command=self.build_graph, font=settings.entry_font)\
-                  .grid(row=6, column=0, sticky=tk.N, pady=10)
+            .grid(row=6, column=0, sticky=tk.N, pady=10)
         # Calculate the ending capital
         framing = tk.Frame(self.screen, bg=settings.BLACK)
         framing.grid(row=6, column=1, sticky=tk.NSEW)
         # Next Year, New Sequence
         new_seq = tk.Button(framing, text='New Sequence', width=12,
-               command=self.calc_ending_cap)
+                            command=self.calc_ending_cap)
         add_seq = tk.Button(framing, text='Add Sequence', width=12,
-               command=lambda: self.calc_ending_cap(1))
+                            command=lambda: self.calc_ending_cap(1))
         new_seq.pack(side='left')
         add_seq.pack(side='right')
-
 
     def get_entries(self):
         # Grab all the entries from entry boxes
@@ -112,43 +111,40 @@ class YearBy:
         except:
             self.capital = 'Please enter numbers only'
 
+    def calculation_loop(self):
+        # Loop over each year and record capital
+        for self.year in range(self.num_periods):
+            if self.toggle_contr.get():
+                self.capital = (self.cap_list[-1] + self.contribution)\
+                    * (1 + self.rate / 100)
+            else:
+                self.capital = self.cap_list[-1] * \
+                    (1 + self.rate / 100) + self.contribution
+            self.cap_list.append(self.capital)
+
     def calc_ending_cap(self, add=0):
         self.get_entries()
         # Display error message
         if isinstance(self.capital, str):
-            pass
-            # self.display_text(self.capital, self.ending_capital_disp)
-        # Calculate ending capital then display final amount
+            self.display_text(self.capital, self.ending_capital_disp)
         else:
-            if add:
-                # self.cap_list = [self.capital]
-                pass
-            else:
+            # If not adding a new sequence, reset capital and year vals.
+            if not add:
                 self.cap_list = [self.capital]
                 self.total_num_periods = 0
-            print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
-            print(self.cap_list)
-
-            for self.year in range(self.num_periods):
-                print(self.cap_list)
-                if self.toggle_contr.get():
-                    self.capital = (self.cap_list[-1] + self.contribution)\
-                     * (1 + self.rate / 100)
-                else:
-                    self.capital = self.cap_list[-1] * \
-                        (1 + self.rate / 100) + self.contribution
-                self.cap_list.append(self.capital)
-            # Record each capital
+            # Perform appropriate calculations on capital
+            self.calculation_loop()
+            self.total_num_periods += self.num_periods
+            # Display ending capital
             self.capital = '$' + str("{:,}".format(round(self.capital)))
             self.display_text(self.capital, self.ending_capital_disp)
-            self.total_num_periods += self.num_periods
 
     def graph_exception(self):
         return False
 
     def total_contri_generator(self):
-        for x in range(self.total_num_periods+1):
-            yield self.capital + x*self.contribution
+        for x in range(self.total_num_periods + 1):
+            yield self.capital + x * self.contribution
 
     def build_graph(self):
         self.get_entries()
@@ -157,7 +153,7 @@ class YearBy:
             # Output error to textbox
             return
         total_contributions = list(self.total_contri_generator())
-        time_period = range(self.total_num_periods+1)
+        time_period = range(self.total_num_periods + 1)
         # Create graph and display
         new = mla.LineGraph()
         new.plot_line(time_period, self.cap_list, 'Total Capital')

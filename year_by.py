@@ -91,7 +91,7 @@ class YearBy:
         new_seq = tk.Button(framing, text='New Sequence', width=12,
                command=self.calc_ending_cap)
         add_seq = tk.Button(framing, text='Add Sequence', width=12,
-               command=self.calc_ending_cap)
+               command=lambda: self.calc_ending_cap(1))
         new_seq.pack(side='left')
         add_seq.pack(side='right')
 
@@ -112,31 +112,42 @@ class YearBy:
         except:
             self.capital = 'Please enter numbers only'
 
-    def calc_ending_cap(self):
+    def calc_ending_cap(self, add=0):
         self.get_entries()
         # Display error message
         if isinstance(self.capital, str):
-            self.display_text(self.capital, self.ending_capital_disp)
+            pass
+            # self.display_text(self.capital, self.ending_capital_disp)
         # Calculate ending capital then display final amount
         else:
-            self.cap_list = [self.capital]
+            if add:
+                # self.cap_list = [self.capital]
+                pass
+            else:
+                self.cap_list = [self.capital]
+                self.total_num_periods = 0
+            print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+            print(self.cap_list)
+
             for self.year in range(self.num_periods):
+                print(self.cap_list)
                 if self.toggle_contr.get():
-                    self.capital = (self.capital + self.contribution)\
+                    self.capital = (self.cap_list[-1] + self.contribution)\
                      * (1 + self.rate / 100)
                 else:
-                    self.capital = self.capital * \
+                    self.capital = self.cap_list[-1] * \
                         (1 + self.rate / 100) + self.contribution
                 self.cap_list.append(self.capital)
             # Record each capital
             self.capital = '$' + str("{:,}".format(round(self.capital)))
             self.display_text(self.capital, self.ending_capital_disp)
+            self.total_num_periods += self.num_periods
 
     def graph_exception(self):
         return False
 
     def total_contri_generator(self):
-        for x in range(self.num_periods+1):
+        for x in range(self.total_num_periods+1):
             yield self.capital + x*self.contribution
 
     def build_graph(self):
@@ -146,7 +157,7 @@ class YearBy:
             # Output error to textbox
             return
         total_contributions = list(self.total_contri_generator())
-        time_period = range(self.num_periods+1)
+        time_period = range(self.total_num_periods+1)
         # Create graph and display
         new = mla.LineGraph()
         new.plot_line(time_period, self.cap_list, 'Total Capital')

@@ -1,6 +1,6 @@
 '''
-This module is the capital calculator. It calculates ending capital from
-interest rate, starting capital, number of years, and yearly contribution.
+This module can calculate a sequence of capital values for different values of
+interest rate, yearly contribution, num_periods.
 
 Author: Aiden Burgess
 '''
@@ -9,12 +9,13 @@ import multi_line_annot as mla
 import settings
 import calculator
 
+
 class YearBy:
 
     def __init__(self):
         # Open new window for
         self.screen = tk.Tk()
-        self.screen.title('Compound Interest Calculator')
+        self.screen.title('Compound Sequence Calculator')
         self.screen.configure(background=settings.BLACK)
         # Build widgets onto window
         self.disp_title()
@@ -26,11 +27,11 @@ class YearBy:
         self.disp_back_button()
         # Quit button
         # Start the window
-        print('Initialised Capital Calculator')
+        print('Initialised YearBy')
         self.screen.mainloop()
 
     def disp_title(self):
-        tk.Label(self.screen, text='Compound Interest', fg=settings.WHITE,
+        tk.Label(self.screen, text='Year by Year', fg=settings.WHITE,
                  bg=settings.BLACK, font=settings.title_font)\
                  .grid(row=0, column=0, sticky=tk.NSEW)
 
@@ -84,9 +85,16 @@ class YearBy:
                   command=self.build_graph, font=settings.entry_font)\
                   .grid(row=6, column=0, sticky=tk.N, pady=10)
         # Calculate the ending capital
-        tk.Button(self.screen, text='Submit', width=10,
-                  command=self.calc_ending_cap, font=settings.entry_font)\
-            .grid(row=6, column=1, sticky=tk.N, pady=10)
+        framing = tk.Frame(self.screen, bg=settings.BLACK)
+        framing.grid(row=6, column=1, sticky=tk.NSEW)
+        # Next Year, New Sequence
+        new_seq = tk.Button(framing, text='New Sequence', width=12,
+               command=self.calc_ending_cap)
+        add_seq = tk.Button(framing, text='Add Sequence', width=12,
+               command=self.calc_ending_cap)
+        new_seq.pack(side='left')
+        add_seq.pack(side='right')
+
 
     def get_entries(self):
         # Grab all the entries from entry boxes

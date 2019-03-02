@@ -9,7 +9,8 @@ import multi_line_annot as mla
 import settings
 import calculator
 
-class CompoundCalculator:
+
+class CompoundCalc:
 
     def __init__(self):
         # Open new window for
@@ -68,6 +69,16 @@ class CompoundCalculator:
         radio2.pack(side='right')
         print('Radios constructed')
 
+    def disp_submit_buttons(self):
+        # Build the graph button
+        tk.Button(self.screen, text='Build Graph', width=10,
+                  command=self.build_graph, font=settings.entry_font)\
+                  .grid(row=6, column=0, sticky=tk.N, pady=10)
+        # Calculate the ending capital
+        tk.Button(self.screen, text='Submit', width=10,
+                  command=self.calc_ending_cap, font=settings.entry_font)\
+            .grid(row=6, column=1, sticky=tk.N, pady=10)
+
     def out_ending_cap(self):
         # Display the ending capital in textbox
         tk.Label(self.screen, text='\nEnding Capital:', fg=settings.WHITE,
@@ -78,15 +89,10 @@ class CompoundCalculator:
             background=settings.WHITE, font=settings.entry_font)
         self.ending_capital_disp.grid(row=7, column=1, sticky=tk.S)
 
-    def disp_submit_buttons(self):
-        # Build the graph button
-        tk.Button(self.screen, text='Build Graph', width=10,
-                  command=self.build_graph, font=settings.entry_font)\
-                  .grid(row=6, column=0, sticky=tk.N, pady=10)
-        # Calculate the ending capital
-        tk.Button(self.screen, text='Submit', width=10,
-                  command=self.calc_ending_cap, font=settings.entry_font)\
-            .grid(row=6, column=1, sticky=tk.N, pady=10)
+    def disp_back_button(self):
+        tk.Button(self.screen, text='<-- back', width=10,
+                  command=self.back_to_main, font=settings.entry_font)\
+            .grid(row=8, column=0, sticky=tk.W, pady=10)
 
     def get_entries(self):
         # Grab all the entries from entry boxes
@@ -139,16 +145,11 @@ class CompoundCalculator:
             return
         total_contributions = list(self.total_contri_generator())
         time_period = range(self.num_periods+1)
-        # Add legends to lines
+        # Create graph and display
         new = mla.LineGraph()
         new.plot_line(time_period, self.cap_list, 'Total Capital')
         new.plot_line(time_period, total_contributions, 'Total Contribution')
         new.show_graph()
-
-    def disp_back_button(self):
-        tk.Button(self.screen, text='<-- back', width=10,
-                  command=self.back_to_main, font=settings.entry_font)\
-            .grid(row=8, column=0, sticky=tk.W, pady=10)
 
     def back_to_main(self):
         self.screen.destroy()
@@ -156,4 +157,4 @@ class CompoundCalculator:
 
 
 if __name__ == '__main__':
-    CompoundCalculator()
+    CompoundCalc()

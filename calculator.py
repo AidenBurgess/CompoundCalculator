@@ -4,6 +4,7 @@ Author: Aiden Burgess
 '''
 import tkinter as tk
 import settings
+import simple_calc
 import compound_calculator
 import year_by
 
@@ -31,14 +32,17 @@ class MainScreen:
     def format_main_screen(self):
         tk.Label(self.screen, text='Aiden\'s Calculator\nMain Screen', fg=settings.WHITE, bg=settings.BLACK, font=settings.title_font) \
             .grid(row=0, column=0, sticky=tk.NSEW)
-        tk.Button(self.screen, text='Calculate ending capital', width=18, command=lambda: self.new_screen(compound_calculator.CompoundCalculator)) \
+        tk.Button(self.screen, text='Simple Compound Calculator', width=18, command=lambda: self.new_screen(simple_calc.SimpleCalc)) \
             .grid(row=1, column=0, sticky=tk.NSEW)
-        tk.Button(self.screen, text='Year by year', width=18, command=lambda: self.new_screen(year_by.YearBy)) \
+        tk.Button(self.screen, text='Calculate Ending Capital', width=18, command=lambda: self.new_screen(compound_calculator.CompoundCalc)) \
             .grid(row=2, column=0, sticky=tk.NSEW)
+        tk.Button(self.screen, text='Year by Year', width=18, command=lambda: self.new_screen(year_by.YearBy)) \
+            .grid(row=3, column=0, sticky=tk.NSEW)
         # Center everything
         self.screen.grid_rowconfigure(0, weight=2)
         self.screen.grid_rowconfigure(1, weight=1)
         self.screen.grid_rowconfigure(2, weight=1)
+        self.screen.grid_rowconfigure(3, weight=1)
         self.screen.grid_columnconfigure(0, weight=1)
 
 

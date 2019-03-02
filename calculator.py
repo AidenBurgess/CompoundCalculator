@@ -26,12 +26,16 @@ class MainScreen:
 
     def init_main_screen(self):
         self.screen.title("Aiden's Calculator")
-        self.screen.geometry('400x400')
+        self.screen.geometry('600x400')
         self.screen.configure(background=settings.BLACK)
 
     def format_main_screen(self):
-        tk.Label(self.screen, text='Aiden\'s Calculator\nMain Screen', fg=settings.WHITE, bg=settings.BLACK, font=settings.title_font) \
-            .grid(row=0, column=0, sticky=tk.NSEW)
+        # Display title logo
+        photo = tk.PhotoImage(file='title_logo.gif')
+        logo = tk.Label(self.screen, image=photo, bg=settings.BLACK)
+        logo.grid(row=0, column=0, sticky=tk.NSEW)
+        logo.image = photo
+        # Display buttons to the calculators
         tk.Button(self.screen, text='Simple Compound Calculator', width=18, command=lambda: self.new_screen(simple_calc.SimpleCalc)) \
             .grid(row=1, column=0, sticky=tk.NSEW)
         tk.Button(self.screen, text='Calculate Ending Capital', width=18, command=lambda: self.new_screen(compound_calculator.CompoundCalc)) \

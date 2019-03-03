@@ -1,4 +1,5 @@
 # CompoundCalculator
+<img src="https://user-images.githubusercontent.com/5440199/53690748-48c96f80-3dd5-11e9-825a-e166d84e9a79.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/5440199/53690749-49620600-3dd5-11e9-864e-c27881d5ae2a.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/5440199/53690750-49620600-3dd5-11e9-908a-823db32b44b6.png" width="45%"></img> <img src="https://user-images.githubusercontent.com/5440199/53690751-49620600-3dd5-11e9-952b-b2ee240edd21.png" width="45%"></img>  
 Calculate future savings with: capital, rate, years, yearly contribution.  
 Build annotated graphs to see the difference between contributions and interest.  
 

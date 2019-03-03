@@ -4,6 +4,7 @@ interest rate, yearly contribution, num_periods.
 
 Author: Aiden Burgess
 '''
+from itertools import accumulate
 import tkinter as tk
 import multi_line_annot as mla
 import settings
@@ -100,14 +101,14 @@ class YearBy:
         self.capital = self.entries[0].get()
         self.rate = self.entries[1].get()
         self.num_periods = self.entries[2].get()
-        self.contribution = self.entries[3].get()
+        self.contr = self.entries[3].get()
         self.convert_entries_int()
 
     def convert_entries_int(self):
         # Convert parameters to int
         try:
-            self.capital, self.rate, self.num_periods, self.contribution = list(
-                map(int, [self.capital, self.rate, self.num_periods, self.contribution]))
+            self.capital, self.rate, self.num_periods, self.contr = list(
+                map(int, [self.capital, self.rate, self.num_periods, self.contr]))
         except:
             self.capital = 'Please enter numbers only'
 
@@ -115,11 +116,11 @@ class YearBy:
         # Loop over each year and record capital
         for self.year in range(self.num_periods):
             if self.toggle_contr.get():
-                self.capital = (self.cap_list[-1] + self.contribution)\
+                self.capital = (self.cap_list[-1] + self.contr)\
                     * (1 + self.rate / 100)
             else:
                 self.capital = self.cap_list[-1] * \
-                    (1 + self.rate / 100) + self.contribution
+                    (1 + self.rate / 100) + self.contr
             self.cap_list.append(self.capital)
 
     def calc_ending_cap(self, add=0):
@@ -132,9 +133,11 @@ class YearBy:
             if not add:
                 self.cap_list = [self.capital]
                 self.total_num_periods = 0
+                self.total_contr = [self.capital]
             # Perform appropriate calculations on capital
             self.calculation_loop()
             self.total_num_periods += self.num_periods
+            self.total_contr += [self.contr] * self.num_periods
             # Display ending capital
             self.capital = '$' + str("{:,}".format(round(self.capital)))
             self.display_text(self.capital, self.ending_capital_disp)
@@ -142,22 +145,18 @@ class YearBy:
     def graph_exception(self):
         return False
 
-    def total_contri_generator(self):
-        for x in range(self.total_num_periods + 1):
-            yield self.capital + x * self.contribution
-
     def build_graph(self):
         self.get_entries()
         # Total contribution line
         if self.graph_exception():
             # Output error to textbox
             return
-        total_contributions = list(self.total_contri_generator())
+        total_contr = list(accumulate(self.total_contr))
         time_period = range(self.total_num_periods + 1)
         # Create graph and display
         new = mla.LineGraph()
         new.plot_line(time_period, self.cap_list, 'Total Capital')
-        new.plot_line(time_period, total_contributions, 'Total Contribution')
+        new.plot_line(time_period, total_contr, 'Total Contribution')
         new.show_graph()
 
     def disp_back_button(self):
